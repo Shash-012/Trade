@@ -7,8 +7,8 @@ from alpaca.data.timeframe import TimeFrame
 import pandas
 
 # Authentication of API using API key and secret
-API_KEY = 'PKEAPFGSLDAKSZZEH9G2'
-API_SECRET = 'KfTAPbTBj7TTcsXHWoOpDhkARsJkCmLj5AIgrqGe'
+API_KEY = 'Enter your key'
+API_SECRET = 'Enter your secret'
 BASE_URL = 'https://paper-api.alpaca.markets'
 
 #initialize the api
