@@ -1,4 +1,10 @@
 import alpaca_trade_api as tradeapi
+from alpaca.data.historical import CryptoHistoricalDataClient
+from alpaca.data.historical import StockHistoricalDataClient
+from alpaca.data.requests import StockBarsRequest
+from alpaca.data.requests import CryptoBarsRequest
+from alpaca.data.timeframe import TimeFrame
+import pandas
 
 # Authentication of API using API key and secret
 API_KEY = 'PKEAPFGSLDAKSZZEH9G2'
@@ -79,7 +85,32 @@ def check_status():
     status = api.get_order(order.id).status
     print(status)
 
-Buy_Nvidia_shares()
-check_open_orders()
-check_status()
+def get_btc_history():
+    client=CryptoHistoricalDataClient()
+    request_params=CryptoBarsRequest(
+        symbol_or_symbols='BTC/USD',
+        timeframe=TimeFrame.Day,
+        start='2025-01-01'
+    )
+    bars=client.get_crypto_bars(request_params)
+    
+    # Converts the data into a pandas dataframe
+    df=bars.df
+    print(df)
+
+def get_NVDA_history():
+    client = StockHistoricalDataClient(api_key=API_KEY,secret_key=API_SECRET)
+    req_params = StockBarsRequest(
+        symbol_or_symbols=['NVDA'],
+        timeframe=TimeFrame.Day,
+        start='2025-06-12'
+    )
+    bars=client.get_stock_bars(req_params)
+
+    df=bars.df
+    with pandas.option_context('display.max_rows',None,'display.max_columns',None):
+        print(df)
+    #df.to_csv('NVDA_stocks_12to18June2025.csv')
+
+get_NVDA_history()
 
